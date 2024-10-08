@@ -1,12 +1,13 @@
-from collections import defaultdict
-
 class Grafo:
     def __init__(self):
-        self.grafo = defaultdict(list)  # Lista de adjacências
+        self.grafo = {}  # Lista de adjacências
         self.vertices = set()  # Conjunto para armazenar todos os vértices
 
     # Função para adicionar uma aresta ao grafo
     def adicionar_aresta(self, v: str, w: str):
+        if v not in self.grafo:
+            self.grafo[v] = []
+
         self.grafo[v].append(w)
         self.vertices.add(v)
         self.vertices.add(w)
@@ -70,19 +71,7 @@ class Grafo:
     def existe_aresta(self, u: str, v: str) -> bool:
         return v in self.grafo[u]
 
-# Exemplo de uso:
 g = Grafo()
-# g.adicionar_aresta("A", "B")
-# g.adicionar_aresta("B", "C")
-# g.adicionar_aresta("B", "D")
-# g.adicionar_aresta("C", "D")
-# g.adicionar_aresta("D", "A")
-# g.adicionar_aresta("E", "D")
-# g.adicionar_aresta("E", "F")
-# g.adicionar_aresta("F", "G")
-# g.adicionar_aresta("G", "E")
-
-
 g.adicionar_aresta("Ana", "Bia")
 g.adicionar_aresta("Bia", "Pedro")
 g.adicionar_aresta("Pedro", "Ana")
@@ -106,6 +95,3 @@ for i, scc in enumerate(sccs, 1):
             for v in scc:
                 if u != v and not g.existe_aresta(u, v):
                     print(f"Sugestão de amizade: {u} -> {v}")
-
-
-
